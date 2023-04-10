@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset = "UTF-8" >
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" ></script> <!-- Initializing script used for drawboard from p5.js library -->
+    
+    <link rel = "stylesheet" href = "css/main.css">
+    
+    <title>chaos canvas | Interactive Drawboard & Art Portfolio</title>
+
+</head>
+
+<body>
+
+    <header> <!-- Header, contains Logo Sprite, Banner, and About Me Sprite. -->
+
+        <nav>
+
+            <a href = "index.html" >
+
+                <h1 class = "hidden" >Banner</h1>
+                <img src = "images/websitebanner.svg" alt = "Website Banner" id = "main-banner">
+
+            </a>
+        
+            <a href = "index.html" >
+
+                <h1 class = "hidden" >Logo</h1>
+                <div class = "logoSprite" id = "main-logo"></div>
+
+            </a>
+        
+            <a href = "aboutme.html" >
+
+                <h1 class = "hidden" >About Me</h1>
+                <div class = "aboutmeSprite" id = "about-me"></div>
+                
+            </a>
+
+        </nav>
+        
+    </header>
+
+    <main>
+
+        <section> <!-- Side Banner-->
+
+            <div class = "side-banner" >
+    
+                <h2 class = "hidden">Side Banner</h2>
+                <img src = "images/websitesidebanner.svg" alt = "Website Side Banner" id = "side-banner">
+    
+            </div>
+    
+        </section>
+
+        <section id= "canvas-container" > <!-- Container for Interactive Drawboard-->
+
+            <h2 class = "hidden">Interactive Drawboard</h2>
+            <!-- Running script within HTML file, language will use JS until end of script -->
+            <script>
+            let canvas;
+            let brushColor = [255, 255, 255]; // Default to white color
+            let spaceBarPressed = false;
+        
+            function setup() 
+            {// Creating canvas, size 1900x1000. Background color uses value of 0, which is color of black. Stroke uses value stored in id brushColor
+                canvas = createCanvas(1900, 1000);
+                canvas.parent('canvas-container');
+                background(0);
+                stroke(brushColor);
+            }
+        
+            function draw()
+            {
+                if (mouseIsPressed && mouseButton === LEFT)  
+                // Check if LMB is pressed
+                {
+                    strokeWeight(10);
+                    // strokeWeight of 10. Effects size of brush
+                    line(mouseX, mouseY, pmouseX, pmouseY);
+                }
+            }
+        
+            function keyPressed() 
+            {
+                if (keyCode === 32) 
+                {// Check if space bar is pressed
+                    spaceBarPressed = true;
+                    // When true, select random colour through random number generation out of 255 per allocation of number to simulate hex colour values. Value is stored in brushColor.
+                    brushColor = [random(255), random(255), random(255)];
+                    stroke(brushColor); 
+                    // Value of brushColor (random generated colour) for stroke
+                }
+            }
+
+            function keyReleased() 
+            {
+                if (keyCode === 32) 
+                {// Check if space bar is released. 
+                //If not pressed, value of spaceBarPressed = false. 
+                    spaceBarPressed = false;
+                    // When false, Set the brush color back to white
+                    brushColor = [255, 255, 255];
+                    stroke(brushColor);
+                    // Value of brushColor (random generated colour) for stroke
+                }
+            }
+            </script>
+
+        </section>
+
+    </main>
+    
+
+    <footer class = "sticky_footer"> <!-- Footer. Contains Navigation to Projects Page and Mail Page. This page also has instructions on how to use the drawboard. -->
+
+        <nav>
+            <a href = "projects.html" >
+                <h2 class = "hidden" >Projects</h2>
+                <div class = "projectSprite" id = "project" ></div>
+            </a>
+    
+            <a href = "mail.html" >
+                <h2 class = "hidden" >Mail</h2>
+                <div class = "mailSprite" id="mail" ></div>
+            </a>
+
+        </nav>
+
+        <article> <!-- Article to place Instructions text-->
+    
+            <h1 class = "hidden">Drawboard Instructions</h1>
+            <h2>interactive drawboard</h2> from P5.js library <br><br>
+            <h3>hold & drag lmb</h3> to stroke white brush <br>
+            <h3>hold space & hold lmb</h3> to use a random colour<br>
+            <h3>hover over any image</h3> to experience site navigation <br>
+
+        </article>
+
+    </footer>
+    
+</body>
+</html>
